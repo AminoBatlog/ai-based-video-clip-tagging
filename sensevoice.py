@@ -1,20 +1,17 @@
 import os
 import glob
 import re
-import numpy as np
 from pydub import AudioSegment
 from tqdm import tqdm
 import soundfile as sf
-import torch
-
 # SenseVoice 所需导入
 from funasr import AutoModel
-from funasr.utils.postprocess_utils import rich_transcription_postprocess
 
 # 初始化模型
 print("正在加载SenseVoice模型...")
 sensevoice_model = AutoModel(
-    model="iic/SenseVoiceSmall",
+    # model="iic/SenseVoiceSmall",
+    model="./SenseVoiceSmall",  # 切换为本地源
     trust_remote_code=True,
     device='cuda',  # 根据你的硬件调整，'cpu' 或 'cuda'
     disable_update=True
@@ -23,7 +20,8 @@ sensevoice_model = AutoModel(
 # 初始化FSMN-VAD模型（全局初始化，避免重复加载）
 print("正在加载FSMN-VAD模型...")
 vad_model = AutoModel(
-    model="fsmn-vad",  # 使用FSMN-VAD模型
+    # model="fsmn-vad",
+    model="./speech_fsmn_vad_zh-cn-16k-common-pytorch",
     trust_remote_code=True,
     device='cuda',  # 根据硬件调整
     disable_update=True
@@ -36,7 +34,7 @@ EVENT_TAGS = {
     "laughter": ["<|Laughter|>", "[笑声]", "laughter"]
 }
 TARGET_EVENTS = ["laughter"]
-target_folder = "Z:\\test\\"  # 替换为视频目录
+target_folder = "Z:/test/"  # 替换为视频目录
 
 
 def extract_audio_from_video(video_path, audio_output_path):
