@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 如CUDA版本为12.9，则下载代码为
 ```
-pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu129
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu129
 ```
 
 如果不下载支持对应cuda版本的pytorch，则会使用cpu进行AI模型的运行，会更慢一些
@@ -22,8 +22,10 @@ AMD或Intel显卡用户则只能使用cpu进行AI模型运行
 
 下载cpu版本的pytorch代码为
 ```
-pip3 install torch torchvision
+pip3 install torch torchvision torchaudio
 ```
+
+注意需安装torch, torchvision, torchaudio三个库
 
 
 2. 修改参数
