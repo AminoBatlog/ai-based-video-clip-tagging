@@ -6,6 +6,7 @@ from tqdm import tqdm
 import soundfile as sf
 # SenseVoice 所需导入
 from funasr import AutoModel
+import torch
 
 # 初始化模型
 print("正在加载SenseVoice模型...")
@@ -13,7 +14,7 @@ sensevoice_model = AutoModel(
     # model="iic/SenseVoiceSmall",
     model="./SenseVoiceSmall",  # 切换为本地源
     trust_remote_code=True,
-    device='cuda',  # 根据你的硬件调整，'cpu' 或 'cuda'
+    device='cuda' if torch.cuda.is_available() else 'cpu',  # 根据你的硬件调整，'cpu' 或 'cuda'
     disable_update=True
 )
 
@@ -23,7 +24,7 @@ vad_model = AutoModel(
     # model="fsmn-vad",
     model="./speech_fsmn_vad_zh-cn-16k-common-pytorch",
     trust_remote_code=True,
-    device='cuda',  # 根据硬件调整
+    device='cuda' if torch.cuda.is_available() else 'cpu',  # 根据硬件调整
     disable_update=True
 )
 
