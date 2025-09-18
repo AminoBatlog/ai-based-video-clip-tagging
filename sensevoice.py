@@ -25,7 +25,7 @@ print("正在加载FSMN-VAD模型...")
 vad_model = AutoModel(
     model="fsmn-vad",  # 使用FSMN-VAD模型
     trust_remote_code=True,
-    device='cuda' if torch.cuda.is_available() else 'cpu',  # 根据硬件调整
+    device='cuda',  # 根据硬件调整
     disable_update=True
 )
 
@@ -36,6 +36,7 @@ EVENT_TAGS = {
     "laughter": ["<|Laughter|>", "[笑声]", "laughter"]
 }
 TARGET_EVENTS = ["laughter"]
+target_folder = "Z:\\test\\"  # 替换为视频目录
 
 
 def extract_audio_from_video(video_path, audio_output_path):
@@ -303,6 +304,4 @@ def main(video_directory):
 
 
 if __name__ == "__main__":
-    VIDEO_DIRECTORY = "Z:\\test\\"  # 替换为视频目录
-
-    main(VIDEO_DIRECTORY)
+    main(target_folder)
